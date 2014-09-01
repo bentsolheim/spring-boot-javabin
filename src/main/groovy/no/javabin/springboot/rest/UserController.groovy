@@ -21,7 +21,7 @@ class UserController {
     List<User> list(@RequestParam(required = false) String email) {
 
         if (email) {
-            userRepository.findAllByEmail(email)
+            userRepository.findAllByEmailContains(email)
         } else {
             userRepository.findAll()
         }
