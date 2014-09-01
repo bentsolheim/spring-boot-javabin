@@ -4,6 +4,7 @@ import no.javabin.springboot.domain.User
 import no.javabin.springboot.repos.UserRepository
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.web.bind.annotation.RequestMapping
+import org.springframework.web.bind.annotation.RequestParam
 import org.springframework.web.bind.annotation.RestController
 
 import static org.springframework.web.bind.annotation.RequestMethod.GET
@@ -17,8 +18,12 @@ class UserController {
 
 
     @RequestMapping(value = "/", method = GET)
-    List<User> list() {
+    List<User> list(@RequestParam(required = false) String email) {
 
-        userRepository.findAll()
+        if (email) {
+            userRepository.findAllByEmail(email)
+        } else {
+            userRepository.findAll()
+        }
     }
 }
